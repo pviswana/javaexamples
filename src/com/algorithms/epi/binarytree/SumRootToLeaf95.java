@@ -78,6 +78,8 @@ public class SumRootToLeaf95 {
         treeNode.right.right.right.identifier = "P";
 
         inOrderTraversal(treeNode);
+        log("\n\nSum Root to Leaf:");
+        sumRootToLeaf(treeNode);
     }
 
     private void inOrderTraversal(BinaryTreeNode<Integer> tree) {
@@ -90,8 +92,9 @@ public class SumRootToLeaf95 {
         inOrderTraversal(tree.right);
     }
 
-    private int sumRootToLeaf(BinaryTreeNode<Integer> tree) {
-        return sumRootToLeafHelper(tree, 0);
+    private void sumRootToLeaf(BinaryTreeNode<Integer> tree) {
+        int total =  sumRootToLeafHelper(tree, 0);
+        log("\nTotal = " + total);
     }
 
     private int sumRootToLeafHelper(BinaryTreeNode<Integer> tree, int partialPathSum) {
@@ -102,9 +105,11 @@ public class SumRootToLeaf95 {
         partialPathSum = partialPathSum * 2 + tree.data;
 
         if (tree.left == null && tree.right == null) {
+            log(tree.identifier + "(leaf) = " + partialPathSum);
             return partialPathSum;
         }
 
+        log(tree.identifier + "(non-leaf) = " + partialPathSum);
         return sumRootToLeafHelper(tree.left, partialPathSum) + sumRootToLeafHelper(tree.right, partialPathSum);
     }
 
