@@ -7,6 +7,16 @@ public abstract class AbstractBinaryTree {
         T data;
         String identifier;
         BinaryTreeNode<T> left, right;
+        int count;
+
+        public BinaryTreeNode() {
+        }
+
+        public BinaryTreeNode(String identifier, BinaryTreeNode<T> left, BinaryTreeNode<T> right) {
+            this.identifier = identifier;
+            this.left = left;
+            this.right = right;
+        }
     }
 
     public void initializeTree() {
@@ -15,7 +25,6 @@ public abstract class AbstractBinaryTree {
         treeNode.identifier = "A";
 
         treeNode.left = new BinaryTreeNode<Integer>();
-        ;
         treeNode.left.data = 2;
         treeNode.left.identifier = "B";
 
@@ -74,7 +83,38 @@ public abstract class AbstractBinaryTree {
         treeNode.right.right.right = new BinaryTreeNode<>();
         treeNode.right.right.right.data = 16;
         treeNode.right.right.right.identifier = "P";
+
+        setNumbers(treeNode, 0);
+        inOrderTraversal(treeNode);
     }
+
+    protected void inOrderTraversal(BinaryTreeNode<Integer> treeNode) {
+        if (treeNode != null) {
+            inOrderTraversal(treeNode.left);
+            log(treeNode.identifier + "-" + treeNode.count);
+            inOrderTraversal(treeNode.right);
+        }
+    }
+
+    protected void preOrderTraversalRecursive(BinaryTreeNode<Integer> treeNode) {
+        if (treeNode != null) {
+            log(treeNode.identifier + "-" + treeNode.count);
+            inOrderTraversal(treeNode.left);
+            inOrderTraversal(treeNode.right);
+        }
+    }
+
+    private int setNumbers(BinaryTreeNode<Integer> treeNode, int count) {
+        if (treeNode == null) {
+            return count;
+        }
+
+        count = setNumbers(treeNode.left, count) + 1;
+        treeNode.count = count;
+        count = setNumbers(treeNode.right, count);
+        return count;
+    }
+
 
     public void log(String s) {
         System.out.println(s);
