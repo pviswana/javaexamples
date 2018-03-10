@@ -23,6 +23,12 @@ public class FirstNameDuplicates {
         }
     }
 
+    /**
+     * Time complexity = n log n
+     * Space complexity = O(1)
+     * @param A
+     * @return
+     */
     public List<Name> removeDuplicates(List<Name> A) {
         Collections.sort(A);
         int writeIdx = 0;
